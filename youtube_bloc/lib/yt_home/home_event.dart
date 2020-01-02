@@ -20,3 +20,12 @@ class SearchEvent extends HomeEvent {
   @override
   String toString() => "SearchEvent";
 }
+
+class BottomNavigationTappedEvent extends HomeEvent {
+  final int currentIndex;
+
+  BottomNavigationTappedEvent({@required this.currentIndex}) : super([currentIndex]);
+
+  @override
+  String toString() => "BottomNavigationTappedEvent";
+}

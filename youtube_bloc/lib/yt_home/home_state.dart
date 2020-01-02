@@ -16,3 +16,8 @@ class SearchState extends HomeState {
   @override
   String toString() => "SearchState";
 }
+
+class BottomNavigationTappedState extends HomeState {
+  @override
+  String toString() => "BottomNavigationTappedState";
+}

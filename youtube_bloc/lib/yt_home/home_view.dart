@@ -20,9 +20,11 @@ class _HomeViewState extends State<HomeView> {
   HomeBloc _homeBloc;
   final GlobalKey<ScaffoldState> _homeScaffoldKey = GlobalKey<ScaffoldState>();
 
+  int _currentIndex = 1;
+
   @override
   void initState() {
-    _homeBloc = HomeBloc();
+    _homeBloc = HomeBloc(context: context, currentIndex: _currentIndex);
     super.initState();
   }
 
@@ -37,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         key: _homeScaffoldKey,
         appBar: _getAppBar(),
-//      bottomNavigationBar: _getBottomNavigationBar(),
+      bottomNavigationBar: _getBottomNavigationBar(),
         backgroundColor: Colors.white,
         body: BlocProvider<HomeBloc>(
           bloc: _homeBloc,
@@ -68,8 +70,8 @@ class _HomeViewState extends State<HomeView> {
 
   _getAppBar() {
     return AppBar(
+      title: Image.asset("images/youtube.png",width: 98,height: 36,),
       actions: <Widget>[
-        Image.asset(""),
         IconButton(
           icon: Icon(Icons.search),
           onPressed: () {
@@ -82,7 +84,22 @@ class _HomeViewState extends State<HomeView> {
   }
 
   _getBottomNavigationBar() {
-    return BottomNavigationBar();
+    return BottomNavigationBar(
+      fixedColor: Colors.red,
+      items: [
+        BottomNavigationBarItem(
+            title: Text("inicio"), icon: Icon(Icons.home)),
+        BottomNavigationBarItem(
+            title: Text("Em alta"), icon: Icon(Icons.whatshot)),
+        BottomNavigationBarItem(
+            title: Text("Histórico"), icon: Icon(Icons.history)),
+      ],
+      currentIndex: _homeBloc.currentIndex,
+      onTap: (index) {
+        _homeBloc.dispatch(
+            BottomNavigationTappedEvent(currentIndex: index));
+      },
+    );
   }
 
   _ytHome(String text) {
